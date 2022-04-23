@@ -1,0 +1,522 @@
+:root {
+	--borderCol: #fff;
+	--textCol: #fff;
+	/* background colour of the overlay cells
+	#000 for standard, #045b3b for Wellington & Central and #20598e for APU NSW
+	*/
+	--mainBG: #00417e;
+	--attBG: #000;
+	--goodLiftBG: #008000;
+	--noLiftBG: #ff0000;
+	--borderRad: 10px;
+	--borderSiz: 0px;
+	--shadowCol: rgba(0,0,0, 0.8);
+	--borderFmt: 10px 0 10px 0;
+}
+
+
+body {
+	overflow: hidden;
+	margin: 0;
+	padding: 0;
+	background-color:;
+	font-family: 'Roboto Condensed';
+	text-align: center;
+	letter-spacing: 4px;
+	color: var(--textCol);
+	opacity: 1;
+	position: absolute;
+	width: 1920px;
+	height: auto;
+}
+
+#tableu {
+	font-size: 30px;
+	text-align: center;
+	position: absolute;
+	left: 50px;
+	top: 200px;
+	opacity: 1;
+	border-color: var(--borderCol);
+}
+
+.row, .heading {
+	opacity: 0;
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: space-evenly;
+	border-radius: 5px;
+	border: solid;
+	margin-bottom: 2px;
+	transform: skew(-10deg);
+	box-shadow: 0 10px 20px var(--shadowCol);
+	font-size: 30px;
+	width: 1800px;
+	transition: opacity 1s;
+}
+/* grey scheme */
+.heading {
+	background-color: #222;
+}
+
+.row {
+	background-color: #333;
+}
+
+.A:nth-child(even) {
+	background-color: #222;
+}
+
+A:nth-child(odd) {
+	background-color: #111;
+}
+
+.B:nth-child(even) {
+	background-color: #555;
+}
+
+.B:nth-child(odd) {
+	background-color: #444;
+}
+
+.C:nth-child(even) {
+	background-color: #222;
+}
+
+.C:nth-child(odd) {
+	background-color: #111;
+}
+
+.D:nth-child(even) {
+	background-color: #555;
+}
+
+.D:nth-child(odd) {
+	background-color: #444;
+}
+
+
+/* WCPA theme
+.heading {
+
+	background-color: #045b3b;
+}
+.row {
+
+	background-color: #065c3f;
+}
+.A:nth-child(even) {
+
+	background-color: #020;
+}
+A:nth-child(odd) {
+	background-color: #131;
+}
+.B:nth-child(even) {
+background-color:#454;
+}
+.B:nth-child(odd) {
+background-color:#242;
+}
+.C:nth-child(even) {
+	background-color: #020;
+}
+.C:nth-child(odd) {
+	background-color: #131;
+}
+.D:nth-child(even) {
+background-color:#353;
+}
+.D:nth-child(odd) {
+background-color:#242;
+}
+*/
+
+
+
+.cell {
+	width: 90px;
+	display: inline-block;
+	transform: skew(10deg);
+}
+
+.col0 {
+	width: 100px;
+}
+
+.col1, .col2 {
+	width: 250px;
+}
+
+.show {
+	opacity: 1;
+	transition: opacity 2s;
+}
+
+
+.good {
+	color: #fff;
+	font-weight: bold;
+}
+
+.bad {
+	color: #500;
+	text-decoration: line-through;
+	font-weight: bold;
+}
+
+.soon {
+	color: #777;
+}
+
+#headCell {
+	font-size: 50px;
+}
+
+#overlayLeft {
+	width: 800px;
+	min-height: 300px;
+	height: auto;
+	transform: skew(-10deg);
+	transition: left 0.5s, opacity 0.5s;
+	position: fixed;
+	left: -100px;
+	bottom: 3%;
+	opacity: 0;
+}
+
+	#overlayLeft.show {
+		transition: left 0.5s, opacity 0.5s;
+		opacity: 1;
+		transition-delay: 1s;
+		left: 30px;
+	}
+
+#overlayCentre {
+	overflow: hidden;
+	width: 700px;
+	min-height: 250px;
+	height: auto;
+	transition: bottom 0.5s, opacity 0.5s;
+	opacity: 0;
+	position: fixed;
+	left: 50%;
+	transform: skew(-10deg) translate(-50%,0px);
+	bottom: -100px;
+	transition-delay: 0s;
+}
+
+	#overlayCentre.show {
+		transition: bottom 0.5s, opacity 0.5s;
+		opacity: 1;
+		bottom: 3%;
+		transition-delay: 1s;
+	}
+
+.gridLeft {
+	width: inherit;
+	height: auto;
+	position: absolute;
+	bottom: 0px;
+	display: grid;
+	grid-template-areas:
+		'nam nam nam lif'
+		'cat cat cat sbd'
+		'cmp cmp cmp sbd';
+	grid-row-gap: 5px;
+	grid-column-gap: 5px;
+}
+
+.gridCentre {
+	width: inherit;
+	height: inherit;
+	position: absolute;
+	bottom: 0px;
+	display: grid;
+	grid-template-areas:
+		'res res'
+		'cna cna'
+		'ig ig';
+	grid-row-gap: 10px;
+	grid-column-gap: 10px;
+}
+
+#attemptTimer {
+	font-family: 'Orbitron', sans-serif;
+	padding-left: 10px;
+	min-width: 0;
+	font-size: 30px;
+}
+
+#lifterName {
+	padding-left: 30px;
+}
+
+.overlay {
+	transform: skew(10deg);
+	font-size: 30px;
+}
+
+[class^="container"] {
+	display: flex;
+	align-items: center;
+	/*box-shadow: 10px 10px 10px var(--shadowCol) ; not working properly i dunno*/
+	background-color: var(--mainBG);
+	border-radius: var(--borderFmt);
+	border: solid;
+	transition: width 1s, height 1s, opacity: 0s;
+	padding: 0;
+	min-height: 0;
+	min-width: 0;
+	overflow: hidden;
+}
+
+.containerNam {
+	grid-area: nam;
+	justify-content: center;
+	height: auto;
+}
+
+.containerLif {
+	grid-area: lif;
+	display: flex;
+	flex-direction: column;
+	background-color: var(--attBG);
+	height: auto;
+	justify-content: center;
+	padding: 0px 4px;
+}
+
+.containerSBD {
+	grid-area: sbd;
+	justify-content: center;
+}
+
+.containerTea {
+	grid-area: tea;
+	justify-content: center;
+	opacity: 0;
+}
+	.containerTea.show {
+		opacity: 1;
+	}
+
+.containerAtt {
+	grid-area: att;
+	justify-content: center;
+	border: 0;
+	border-radius: 0;
+	background-color: var(--attBG);
+	font-size: 30px;
+	letter-spacing: 0px;
+}
+
+.containerCat {
+	grid-area: cat;
+	justify-content: center;
+}
+
+.containerSta {
+	grid-area: sta;
+	max-height: 100%;
+	justify-content: center;
+	border: 0;
+	border-radius: 0;
+	font-size: 20px;
+	background-color: var(--attBG);
+}
+
+.containerCmp {
+	grid-area: cmp;
+	justify-content: center;
+}
+
+.containerInsta {
+	justify-content: center;
+	background-color: var(--mainBG);
+	grid-area: ig;
+	transition: height 1s, opacity 1s;
+	opacity: 0;
+	max-height: 90%;
+	left: 5px;
+	letter-spacing: 0px;
+}
+
+	.containerInsta.show {
+		height: 100%;
+		transition: height 1s, opacity 1s;
+		opacity: 1;
+		transition-delay: 0s;
+	}
+
+.containerLifterNameCentre {
+	justify-content: center;
+	border: 0;
+	grid-area: na2;
+	position: relative;
+	height: auto;
+	min-width: 75%;
+	padding: 0px;
+	padding-left: 50px;
+	border-radius: 0 0 0 10px;
+}
+
+.containerAttemptCentre {
+	background-color: var(--attBG);
+	border: 0;
+	grid-area: at2;
+	height: 100%;
+	position: relative;
+	width: 20%;
+	justify-content: center;
+	border-radius: 0;
+	letter-spacing: 0px;
+}
+
+.containerTimer {
+	background-color: var(--mainBG);
+	color: #000; 
+	grid-area: tim;
+	transition: height 1s, opacity 1s;
+	font-size: 40px;
+	width: 170px;
+	opacity: 0;
+	justify-content: left;
+	max-height: 90%;
+}
+
+.containerLiftResult {
+	justify-content: center;
+	grid-area: res;
+	opacity: 0;
+	position: relative;
+	height: auto;
+	transition: width 1s, height 1s, opacity 0.5s;
+	transition-delay: 0s;
+}
+
+	.containerLiftResult.show {
+		transition: width 1s, height 1s, opacity 0.5s;
+		opacity: 1;
+		transition-delay: 1s;
+	}
+
+	.containerLiftResult.goodLift {
+		background-color: var(--goodLiftBG);
+	}
+
+	.containerLiftResult.noLift {
+		background-color: var(--noLiftBG);
+	}
+
+.containerMain {
+	grid-area: cna;
+	position: relative;
+	height: auto;
+}
+
+#category {
+	max-height: 50px;
+}
+
+#compName {
+	max-height: 50px;
+}
+
+#state {
+	max-height: 50px;
+}
+
+#SBDT {
+	font-size: 15px;
+}
+
+#status {
+	font-size: 18px;
+}
+
+#lifterName {
+	font-size: 40px;
+}
+
+#lifterNameCentre {
+	font-size: 50px;
+}
+
+#attemptTimer {
+	padding-left: 46px;
+}
+
+#instagramHandle {
+	max-height: 50px;
+}
+
+#instagramLogo {
+	border-right: solid;
+}
+
+#liftResult {
+	max-height: 50px;
+}
+
+.containerTimer.show {
+	height: 100%;
+	width: 170px;
+	transition: height 1s, opacity 1s;
+	opacity: 1;
+	transition-delay: 0s;
+}
+
+#waitingTicker {
+	opacity: 0;
+	background: rgba(0,0,0,0);
+	box-sizing: content-box;
+	height: 1200px;
+	overflow: hidden;
+	padding: 10px;
+}
+
+	#waitingTicker.show {
+		opacity: 1;
+		background: rgba(0,0,0,0.7);
+		box-sizing: content-box;
+		height: 1200px;
+		overflow: hidden;
+		padding: 10px;
+	}
+
+@keyframes vertTicker {
+	0% {
+		margin-top: 1200px;
+	}
+
+	80% {
+		margin-top: -2200px;
+	}
+
+	100% {
+		margin-top: -2200px;
+	}
+}
+
+#waitingTicker ul {
+	padding: 0;
+	margin: 0;
+	list-style-type: none;
+	animation-name: vertTicker;
+	animation-duration: 50s;
+	animation-fill-mode: backwards;
+	animation-iteration-count: infinite;
+	animation-timing-function: linear;
+}
+
+	#waitingTicker ul li {
+		font-size: 40px;
+		line-height: 50px;
+	}
+
+.logo {
+	position: fixed;
+	right: 30px;
+	bottom: 30px;
+}
